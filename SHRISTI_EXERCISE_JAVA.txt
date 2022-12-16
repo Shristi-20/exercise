@@ -1,0 +1,932 @@
+Name- Shristi Varshney 
+Batch-2
+Topic of Discussion- MongoDB
+Date to present- 30 Nov 2022
+
+
+******************************************************
+Day3_Exercise-
+************
+1. Create a class Emp which counts the number of objects.created,giving a count of total emps in the company.
+
+public class Employee {
+	static int count = 0;
+    
+    public Employee(){
+        count++;
+    }
+    public Employee(int i){
+        count++;
+    }
+    public static void main(String[] args) {
+    	Employee obj1 = new Employee();
+    	Employee obj2 = new Employee(0);
+    	Employee obj3 = new Employee(1);
+        
+        System.out.println("objects created: " + Employee.count);
+    }
+	
+
+}
+__________________________________________________________________________________________________
+2. Print - 
+1
+1 2
+1 2 3
+1 2 3 4
+
+package pkg;
+
+public class Pattern1 {
+	public static void main(String[] args) {
+		for(int i=1;i<5;i++) {
+			for(int j=1;j<=i;j++) {
+				System.out.print(j+" ");
+			}
+			System.out.println();
+		}
+	}
+}
+____________________________________________________________________________________________________
+3. Print- 
+0 
+1 1 
+2 2 2 
+3 3 3 3
+package pkg;
+
+public class Pattern2 {
+	public static void main(String[] args) {
+		for(int i=0;i<4;i++) {
+			System.out.print(i+" ");
+			for(int j=0;j<i;j++) {
+				System.out.print(i+" ");
+			}
+			System.out.println();
+		}
+                  }
+}
+______________________________________________________________________________________________________
+4. Pascal Triangle-
+     1 
+    1 1 
+   1 2 1 
+  1 3 3 1 
+ 1 4 6 4 1 
+
+package pkg;
+
+public class Pascal {
+	public static void main(String[] args) {		
+		 for (int l = 1; l <= 5; l++) {
+	            for (int j = 0; j <= 5 - l; j++) {
+	 
+	                    System.out.print(" ");
+	            }
+	 
+	            
+	            int C = 1;
+	            for (int i = 1; i <= l; i++) {
+	 
+	                
+	                System.out.print(C + " ");
+	                C = C * (l - i) / i;
+	            }
+	            System.out.println();
+	        }
+
+	}
+
+}
+
+------------------------------------------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Day4_Exercise-
+************
+1.Empolyee{empId, empName}
+SalariedEmployee: Empolyee{monthlyTakeAway}
+WagesEmployee: Empolyee{DailyTakeAway}
+AccountDept(Employee e):{Every month calculate the payment and pay DailyWages*30, MonthlySal*1}
+show the working in main()
+
+package day4;
+class Employee{
+	int id;
+	String name;
+	
+    public Employee() {}
+	
+	public Employee(int eid, String name) {
+		
+		this.id = id;
+		this.name = name;
+	}
+
+	@Override
+	public String toString() {
+		return "Emp [eid=" + id + ", name=" + name + "]"; 
+	}
+	
+}
+class salariedEmp extends Employee{
+	int monthlySal;
+	public salariedEmp(int id, String name, int monthlySal) {
+		super(id, name);
+		this.monthlySal= monthlySal;
+	}
+	
+	public void paid() {
+		System.out.println(monthlySal);
+	}
+	
+}
+class WagesEmp extends Employee{
+	int dailySal;
+	public WagesEmp(int id, String name, int dailySal) {
+		super(id, name);
+		this.dailySal= dailySal;
+	}
+	public void paid() {
+		int ans=31*dailySal;
+		System.out.println(ans);}
+	
+}
+class Account{
+	public static void pay(Employee e) {
+		if(e instanceof salariedEmp) {
+			salariedEmp s=new salariedEmp(1, "E1",50000);
+			s.paid();}
+		if(e instanceof WagesEmp) {
+			WagesEmp w=new WagesEmp(2, "E2",500);
+			w.paid();}
+		}
+	} 
+public class Exercise {
+public static void main(String[] args) {
+	WagesEmp wg=new WagesEmp(2, "E2",500);
+	salariedEmp sl=new salariedEmp(1, "E1",50000);
+	Account ac=new Account();
+	ac.pay(wg);
+	ac.pay(sl);
+	}
+}
+--------------------------------------------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Day5_Exercise-
+************
+1.Create a list(Vector, ArrayList) of Employees. Add employees to the list. Print the list of employees every time a new employee 
+is added.Employee is a classList<Employee> emps …Hint: override toString() in Employees.
+import java.util.*;
+ class Employees {
+	String name;
+    int id;
+    
+    public Employees(int id, String name, ArrayList<Employees> emps) { 
+           this.id=id;
+           this.name = name;
+           System.out.println("preious list: "+ emps);
+           System.out.println("current emp added: "+ this.toString());
+    }
+	@Override
+	public String toString() {
+        return "Employees[id="+id+", name=" + name + "] ";
+    }
+   
+	
+	public static void main(String[] args) {
+		 ArrayList<Employees> arr = new ArrayList<Employees>();
+		 arr.add(new Employees(101,"E1",arr));
+		 arr.add(new Employees(102,"E2",arr));
+		 arr.add(new Employees(103,"E3",arr));
+		
+		
+	}
+}
+________________________________________________________________________________________________________
+2. Stack exercise
+package collectionPkg;
+import java.util.*;
+public class Exercise1 {
+	public static void main(String[] args) {
+		String s="The previous list: []The current emp added: Emp [id=101, name=E1]\r\n"
+				+ "The previous list: [Emp [id=101, name=E1]]\r\n"
+				+ "The current emp added: Emp [id=102, name=E2]\r\n"
+				+ "The previous list: [Emp [id=101, name=E1], Emp [id=102, name=E2]]\r\n"
+				+ "The current emp added: Emp [id=103, name=E3]\r\n"
+				+ "";
+		Stack<Character> parentheses_start=new Stack<>();
+		Stack<Character> parentheses_end=new Stack<>();
+		
+		Stack<Character> curly_start=new Stack<>();
+		Stack<Character> curly_end=new Stack<>();
+		
+		Stack<Character> square_start=new Stack<>();
+		Stack<Character> square_end=new Stack<>();
+		
+	    for(char c:s.toCharArray()) {
+	    	if(c=='(')parentheses_start.push(c);
+	        else if(c==')')parentheses_end.push(c);
+	    	
+	        else if(c=='{')curly_start.push(c);
+	    	else if(c=='}')curly_end.push(c);
+	    	
+	    	else if(c=='[')square_start.push(c);
+	    	else if(c==']')square_end.push(c);
+	    	
+	    }
+	    if(parentheses_start.size()!=parentheses_end.size()) {
+	    	System.out.println("Error!");
+	    }
+	    
+	    else if(curly_start.size()!=curly_end.size()) {
+	    	System.out.println("Error!");
+	    }
+	     
+	    
+	    else if(square_start.size()!=square_end.size()) {
+	    	System.out.println("Error!");
+	    }
+	    
+	    else {
+	    	System.out.println("Compiled successfully!");
+	    }
+	}
+
+}
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+DAY6_Exercise-
+************
+1./*WAP in Java using Maps to enter 10 employee (the keys are the empid, the whole employee object is the value)
+Map with 10 entries of Employees
+Menu:
+1. Add a new Employee to the map (take input)
+2. Display the original list of employees (FCFS)
+3. Search for a particular employee according to the empid (Take empid as input)
+4. Sort Employee According to Sal (this should not change the original map)
+5. Sort Employee According to name (this should not change the original map)
+6. exit
+
+Class Employee{ int empid; String name; int sal;}
+*/
+
+package sortPkg;
+import java.util.*;
+import java.util.Scanner;
+
+class Employee {
+	int empid;
+	String name;
+	double sal;
+
+	Employee(int empid, String name, double sal) {
+		this.empid = empid;
+		this.name = name;
+		this.sal = sal;
+	}
+
+	void display() {
+//        System.out.println("Empid: " + empid);
+		System.out.println("Name: " + name);
+		System.out.println("Sal: " + sal);
+	}
+}
+
+public class emp {
+	public static void main(String[] args) {
+		Map<Integer, Employee> map = new HashMap<>();
+		map.put(1, new Employee(1, "A", 1000));
+		map.put(2, new Employee(2, "B", 2000));
+		map.put(3, new Employee(3, "C", 3000));
+		map.put(4, new Employee(4, "D", 4000));
+		map.put(5, new Employee(5, "E", 5000));
+		map.put(6, new Employee(6, "F", 6000));
+		map.put(7, new Employee(7, "G", 7000));
+		map.put(8, new Employee(8, "H", 8000));
+		map.put(9, new Employee(9, "I", 9000));
+		map.put(10, new Employee(10, "J", 10000));
+
+		Scanner sc = new Scanner(System.in);
+		int choice = 0;
+		while (choice != 5) {
+			System.out.println("1. Add a new Employee to the map");
+			System.out.println("2. Display the original list of employees (FCFS)");
+			System.out.println("3. Search for a particular employee according to the empid");
+			System.out.println("4. Sort Employee According to Sal (this should not change the original map)");
+			System.out.println("5. exit");
+			System.out.print("Enter your choice: ");
+			choice = sc.nextInt();
+			switch (choice) {
+			case 1:
+				System.out.print("Enter empid: ");
+				int empid = sc.nextInt();
+				System.out.print("Enter name: ");
+				String name = sc.next();
+				System.out.print("Enter sal: ");
+				double sal = sc.nextDouble();
+				map.put(empid, new Employee(empid, name, sal));
+				break;
+			case 2:
+				for (Map.Entry<Integer, Employee> entry : map.entrySet()) {
+					System.out.println("Empid: " + entry.getKey());
+					entry.getValue().display();
+				}
+				break;
+			case 3:
+				System.out.print("Enter empid: ");
+				empid = sc.nextInt();
+				if (map.containsKey(empid)) {
+					System.out.println("Empid: " + empid);
+					map.get(empid).display();
+				} else {
+					System.out.println("Employee not found");
+				}
+				break;
+			case 4:
+				List<Map.Entry<Integer, Employee>> list = new LinkedList<>(map.entrySet());
+				Collections.sort(list, new Comparator<Map.Entry<Integer, Employee>>() {
+					@Override
+					public int compare(Map.Entry<Integer, Employee> o1, Map.Entry<Integer, Employee> o2) {
+						return (int) (o1.getValue().sal - o2.getValue().sal);
+					}
+				});
+				for (Map.Entry<Integer, Employee> entry : list) {
+					System.out.println("Empid: " + entry.getKey());
+					entry.getValue().display();
+				}
+				break;
+			case 5:
+				break;
+			default:
+				System.out.println("Invalid choice");
+			}
+		}
+		sc.close();
+	}
+}
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Day7_Exercise-
+************
+1. WAP to create Lambda for mathematical operation such as add, subtract, multiply, divide based on an interface for operation.
+Eg:Interface MathOp{Int operation(int x, int y);}MathOp add= (x,y) -> x+y;Add.operation(1,8) -> 9
+package lambdaPkg;
+
+
+interface mathOp{
+	int operation(int x, int y);
+}
+
+
+public class LambdaEg3 {
+	
+	public static void main(String[] args) {
+		
+		
+		mathOp add = (x, y) -> x+y;
+		System.out.println("x+y: " + add.operation(3, 4));
+		
+		
+		mathOp sub = (x, y) -> x > y ? x - y : y - x;
+
+		System.out.println("x-y: " + sub.operation(6, 8));
+		
+		mathOp mul = (x, y) -> x*y;
+		System.out.println("x*y: " + mul.operation(5, 3));
+		
+		mathOp div = (x, y) ->  y == 0 ? 0 : x / y;
+
+		System.out.println("x/y: " + div.operation(10, 2));
+	}
+
+}
+____________________________________________________________________________________________________________________
+2. How will you print unique squares of numbers in java 8?
+
+package excercises;
+import java.util.*;
+
+public class sqrs {
+
+	public static void main(String[] args) {
+		List<Integer> al = Arrays.asList(3, 2, 2, 3, 7, 3, 5);
+		al.stream().map(ele->ele*ele).distinct().forEach(ele->System.out.print(ele + ", "));
+
+	}
+
+}
+
+______________________________________________________________________________________
+3. How will you print count of empty strings in java 8?
+
+package excercises;
+
+import java.util.*;
+
+public class ques2{
+
+	public static void main(String[] args) {
+		List<String> al = Arrays.asList("abc", "", "bc", "efg", "abcd","", "jkl");
+      
+        long count = al.stream().filter(x -> x.isEmpty()).count();
+        System.out.println("Empty Count: " + count);
+	}
+
+}
+___________________________________________________________________________________________________-
+
+4.How will you get the highest number present in a list using Java 8?
+
+package excercises;
+import java.util.*;
+import java.util.stream.Collectors;
+public class Highestnums {
+
+	public static void main(String[] args) {
+		List<Integer> num = Arrays.asList(3, 2, 2, 3, 7, 3, 5);
+		int max = numbers.stream().max(Integer::compare).get();
+		System.out.println( " max value is :" + max);
+
+	}
+
+}
+____________________________________________________________________________________________________
+5.How will you get the lowest number present in a list using Java 8?
+
+package excercises;
+import java.util.*;
+import java.util.stream.Collectors;
+public class Lowestnums {
+
+	public static void main(String[] args) {
+		List<Integer> num = Arrays.asList(3, 2, 2, 3, 7, 3, 5);
+		int min = numbers.stream().min(Integer::compare).get();
+		System.out.println(" min value is :" + min);
+
+	}
+
+}
+____________________________________________________________________________________________________
+6. Find the length of a list of strings individually with the help of maps.
+
+package excercises;
+
+import java.util.Arrays;
+
+public class LenOfStr {
+
+	public static void main(String[] args) {
+		String[] str = {"hello","to", "java"};
+
+		int[] len = Arrays.stream(text)
+		    .mapToInt(String::length)
+		    .toArray();
+		System.out.println(Arrays.toString(len));
+
+	}
+
+}
+_____________________________________________________________________________________________________
+7.WAP in Java8 to convert a list of Strings to lower case.
+
+package excercises;
+
+import java.util.*;
+
+public class LowerCase{
+
+	public static void main(String[] args) {
+		 List<String> li = Arrays.asList("HELLO","WORLD");
+	      System.out.print("List = "+li);
+	      System.out.print("After converting in Uppercase, Strings = ");
+	      li.stream().map(p -> p.toLowerCase()) .forEach(p -> System.out.print(p+ " , "));
+	   }
+	}
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
+Day8_Exercise-
+************
+1.
+package ExceptPkg;
+
+import java.io.IOException;
+import java.util.Scanner;
+
+public class Exercise1 {
+	
+	public static void main(String[] args) {
+		Scanner sc=new Scanner(System.in);
+		System.out.println("Enter Number: ");
+		int x=sc.nextInt();
+		
+		try {
+			int a = 10/x;
+			System.out.println(a*a);
+			System.out.println("Code is executed!! ");
+			}
+		catch(ArithmeticException e) {
+			System.out.println(e);  
+			System.out.println("0 is entered");
+		}
+
+	}
+	}
+___________________________________________________________________________________________________________
+2. /*Create a class called Employee that asks the user to input the name and the age of an employee.
+ *  Raise a custom defined exception when the user enters an employee name that has already 
+    been entered in the array/collection of employees and raise another exception 
+    if the age is negative or less than 18 or greater than 60.
+    If there is any occurrence of any other exception, throw those also as user defined exceptions.
+     It is a menu driven program to 
+     1. Enter New Employee
+     2. List the Employees
+     3. Exit.Exceptions: 
+     AgeInvalidException, DuplicateNameException
+     If age <18: “Children are not allowed as Employees”
+     If Age<0 : “Ghosts are not allowed as Employees”
+     If Age>60 : “Seniors are not Allowed as Employees”
+     If age> 100 : “Purvaj are not allowed as Employees”
+     If name is duplicate: “Duplicate names are not allowed as Employees”
+*/
+
+package userDefineExec;
+import java.util.*;
+
+ class Employee {
+	public Integer Age;
+	public String name;
+
+	public Employee(Integer Age, String name) {
+		this.Age = Age;
+		this.name = name;}
+
+	@Override
+	public String toString() {
+		return "Employee [Name = " + name + ", Age = " + Age + "]\n";
+	}
+}
+
+class InvalidInputException extends RuntimeException {
+	public InvalidInputException(String explaination) {
+		super(explaination);
+	}
+}
+
+class ExceptionCheck {
+	static boolean chkAge(int m) {
+		if (m < 0) {
+			throw new InvalidInputException("Ghosts Are Not allowed as Employee");
+		} else if (m > 0 && m < 18) {
+			throw new InvalidInputException("Childrens Are Not allowed as Employee");
+		} else if (m >= 60 && m < 100) {
+			throw new InvalidInputException("Seniors Are Not allowed as Employee");
+		} else if (m >= 100) {
+			throw new InvalidInputException("purvaj Are Not allowed as Employee");
+		}
+		return true;
+
+	}
+
+	static boolean DuplicateName(String name, List<String> a) {
+
+		if (a.contains(name)) {
+			throw new InvalidInputException("Name already Present in arraylist");
+		}
+		return true;
+	}
+
+}
+
+public class Exercise {
+	public static void main(String[] args) {
+		int n, a;
+		List<Employee> aryan = new ArrayList<Employee>();
+		List<String> names = new ArrayList<String>();
+		String name;
+		Scanner sc = new Scanner(System.in);
+
+		do {
+			System.out.println("Please Select the Operation\n1.Enter New Employee\n2.list The Employeee\n3.Exit");
+			n = sc.nextInt();
+
+			if (n == 1) {
+				System.out.println("Enter the Name");
+				name = sc.next();
+				System.out.println("Enter the Age");
+				a = sc.nextInt();
+
+				try {
+					if (ExceptionCheck.DuplicateName(name, names) && ExceptionCheck.chkAge(a)) {
+						aryan.add(new Employee(a, name));
+						names.add(name);
+
+					}
+
+				} catch (Exception e) {
+					System.out.println(e);
+				}
+				System.out.println("Code continues");
+			} else if (n == 2) {
+				System.out.println(aryan.toString());
+			}
+		} while (n != 3);
+		sc.close();
+
+	}
+
+}
+	
+}
+----------------------------------------------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------------------------------------------
+Day11_Exercise-
+*************
+1.
+package cmdLineAgrPkg;
+
+public class Exercise {
+
+	public static void main(String[] args) {
+		if(args.length !=2) {
+			System.err.println("Bad usage: Enter 2 integers only as args");
+			}
+		else{
+			int sum=Integer.parseInt(args[0]) + Integer.parseInt(args[1]);
+			System.out.println("The sum of " + args[0] + " + " + args[1] + " = "+ sum);
+			}
+
+	}
+
+}
+_____________________________________________________________________________________________________
+2. /*Design a Menu driven Program to Perform the following:
+ * Note file name is : EmpRecord.txt
+ * 1. Add an Emp object as String to a new line in the file.
+ * 2. List all Emp
+ * 3. Over write the file and add a single object of Emp
+ * 4. Exit
+ */
+public class EmpRec{
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		int x;
+		do {
+		System.out.println("Please select\n1.Add an Emp\n2.List All Emp\n3.Append to a File\n4.Search For An Emp\n5.Exit");
+		 x= sc.nextInt();
+		if(x==1)
+		{
+			try {
+				FileOutputStream fout = new FileOutputStream("C:\\Shristi\\EmpRecord.txt", true);
+				System.out.println("Enter your Name");
+				String s = sc.next();
+				byte b[] = s.getBytes();
+				fout.write(b);
+				fout.close();
+				System.out.println("File Created");
+			} 
+                                            catch (Exception e) {
+				System.out.println(e);
+			}
+		}
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Day12_Exercise-
+*************
+1. 
+
+class Accounts{
+	int balance;
+	String name;
+	public Accounts(int balance, String n) {
+		System.out.println("Accounts opened for : "+ n + " with balance : "+ balance);
+		this.balance = balance;
+		name=n;
+	}
+
+	public synchronized void balanceCheck() {
+		System.out.println("The balance in "+ name + " account is:"+balance);
+	}
+	public synchronized void withDrawal(int amt) {
+		 if (amt > balance) 
+			 System.out.println("current balance is less than requested amount");
+		 else {
+			 balance = balance - amt;
+			 System.out.print("The balance in "+ name);
+			 for(int i=0;i<100000000;i++);
+			 System.out.println(name + " account after withdrawal of "+amt + " is: "+balance);
+		 }
+	}
+	public synchronized void deposit(int amt) {
+		balance = balance + amt;
+		System.out.print("The balance in "+ name);
+		for(int i=0;i<100000000;i++);
+		 System.out.println(name + " account after deposit of "+amt + "  is: "+balance);
+	}
+}
+class BalanceCheck implements Runnable{
+	Accounts a;
+	public BalanceCheck(Accounts a) {
+		this.a = a;
+	}
+	public BalanceCheck() {	}
+	public void run() {
+		a.balanceCheck();
+	}
+	
+}
+class Withdraw implements Runnable{
+	Accounts a;
+	int amt;
+	public Withdraw(Accounts a, int at) {
+		this.a = a;
+		amt=at;
+	}
+	public Withdraw() {	}
+	public void run() {
+		a.withDrawal(amt);
+	}
+}
+class Deposit implements Runnable{
+	Accounts a;
+	int amt;
+	public Deposit(Accounts a, int at) {
+		this.a = a;
+		amt=at;
+	}
+	public Deposit() {	}
+	public void run() {
+		a.deposit(amt);
+	}
+}
+
+
+public class SynExercise {
+
+	public static void main(String[] args) {
+		Accounts a1=new Accounts(10000,"N1");
+		Accounts a2=new Accounts(15000,"N2");
+		Accounts a3=new Accounts(21000,"N3");
+		
+		Thread b1=new Thread(new BalanceCheck(a1));
+		Thread b2=new Thread(new BalanceCheck(a2));
+		Thread b3=new Thread(new BalanceCheck(a3));
+		
+		Thread w1=new Thread(new Withdraw(a1, 5000));
+		Thread w2=new Thread(new Withdraw(a2, 10000));
+		Thread w3=new Thread(new Withdraw(a3, 2000));
+		
+		Thread d1=new Thread(new Deposit(a1, 25000));
+		Thread d2=new Thread(new Deposit(a2, 20000));
+		Thread d3=new Thread(new Deposit(a3, 15000));
+		
+		b1.start();
+		b2.start();
+		b3.start();
+		w1.start();
+		w2.start();
+		w3.start();
+		d1.start();
+		d2.start();
+		d3.start();
+
+	}
+
+}
+____________________________________________________________________________________________
+2. 
+package Exercise;
+
+class ChatReal {
+	boolean flag = false;
+	java.util.Scanner sc = new java.util.Scanner(System.in);
+	String s;
+
+	public synchronized void Question(String msg) {
+		if (flag) {
+			try {
+				wait();
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+		System.out.print(msg);
+		s = sc.nextLine();
+
+		// System.out.println(s);
+		if (s.equals("bye") || s.equals("Bye")) {
+
+			System.out.println("Bye Bye!!");
+			System.exit(0);
+		}
+		flag = true;
+		notify();
+	}
+
+	public synchronized void Answer(String msg) {
+		if (!flag) {
+			try {
+				wait();
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+		System.out.print(msg);
+		s = sc.nextLine();
+
+		// System.out.println(s);
+		if (s.equals("bye") || s.equals("Bye")) {
+
+			System.out.println("Bye Bye!!");
+			System.exit(0);
+		}
+		flag = false;
+		notify();
+	}
+}
+
+class T3 implements Runnable {
+	ChatReal m;
+
+	public T3(ChatReal m1) {
+		this.m = m1;
+		new Thread(this).start();
+	}
+
+	public void run() {
+
+		while (true)
+			m.Question("Person 1: ");
+	}
+}
+
+class T4 implements Runnable {
+	ChatReal m;
+
+	public T4(ChatReal m2) {
+		this.m = m2;
+		new Thread(this).start();
+	}
+
+	public void run() {
+
+		while (true)
+
+			m.Answer("Person 2: ");
+	}
+}
+
+public class TestThread_Exercise2 {
+	public static void main(String[] args) {
+		ChatReal m = new ChatReal();
+		new T3(m);
+		new T4(m);
+	}
+}
+
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------------------------------------------
+
+Day13_exercise-
+*************
+1.WA quiz program with only one question. Give 10 sec to answer the question. (T/F Question)
+Result should be displayed only after 10 secs.
+
+
+package pkg;
+
+public class ThreadsEg implements Runnable {
+	static int marks=0;
+	
+	public void run() {
+			try {
+				Thread.sleep(10000); 
+			} catch (Exception e) {
+				System.out.println(e);
+			}
+			System.out.println("\n\nThe marks is: "+ marks);
+			System.exit(0);
+		
+	}
+
+	public static void main(String[] args) throws Exception {
+		System.out.println("Crow is Black [True or Flase] \nAnswer:");
+
+		Thread t1 = new Thread(new Threads_Ex1()); 
+		t1.start();
+		String ans=new java.util.Scanner(System.in).nextLine();
+		if (ans.equalsIgnoreCase("true") || ans.equalsIgnoreCase("t") )
+			marks = 10;
+
+	}
+}
+
+----------------------------------------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------------------------------------------
+
+
